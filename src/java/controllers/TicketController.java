@@ -307,15 +307,16 @@ public class TicketController {
         int idTicket = getTicketId(fk_id_user);
         try {
             Connection conn = DriverManager.getConnection(db.DB.connectionString, db.DB.user, db.DB.password);
-            String query = "insert into user_answers (user_answer, fk_id_user, fk_operators_id, fk_id_ticket) values(?, ?, ?, ?)";
+            String query = "insert into user_answers (user_answer, fk_id_user, fk_operators_id, fk_id_ticket, fk_id_question) values(?, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, answer);
             ps.setInt(2, fk_id_user);
             ps.setInt(3, fk_idoperators);
             ps.setInt(4, idTicket);
+            ps.setInt(5, idQuestion);
             ps.executeUpdate();
             getNextQuestion();
-            if (idQuestion == null) {
+            if (idQuestion == null || idQuestion == 0) {
                 RequestContext.getCurrentInstance().execute("PF('questionsDialog').hide()");
                 RequestContext.getCurrentInstance().execute("PF('thankYouDialog').show()");
                 clear();

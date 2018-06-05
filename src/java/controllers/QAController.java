@@ -280,7 +280,7 @@ public class QAController {
         }
     }
 
-    public void insertQuestionInDatabase() {
+    public void insertQuestionInDatabase() throws IOException {
         try {
             Connection conn = DriverManager.getConnection(db.DB.connectionString, db.DB.user, db.DB.password);
             String query = "insert into questions (question) values(?)";
@@ -295,7 +295,26 @@ public class QAController {
             Logger.getLogger(QAController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             clear();
+            reload();
         }
+    }
+
+    public Boolean question2Exists(int idQ, String answer1) {
+        try {
+            Connection conn = DriverManager.getConnection(db.DB.connectionString, db.DB.user, db.DB.password);
+            Statement stmt = conn.createStatement();
+            String query = "select * from question_associations where id_question1 = " + idQ + " and answer = \"" + answer1 + "\"";
+            ResultSet rs = stmt.executeQuery(query);
+
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QAController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     public void insertQuestionInAssociations(int idQ) {
@@ -303,21 +322,28 @@ public class QAController {
             Connection conn = DriverManager.getConnection(db.DB.connectionString, db.DB.user, db.DB.password);
             String query = "insert into question_associations (id_question1, id_question2, answer, fk_id_ticket_type) values (?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, idQ);
-            ps.setObject(2, null);
-            ps.setString(3, "Yes");
-            ps.setInt(4, idTicketType);
-            ps.executeUpdate();
-            ps.setInt(1, idQ);
-            ps.setObject(2, null);
-            ps.setString(3, "No");
-            ps.setInt(4, idTicketType);
-            ps.executeUpdate();
-            ps.setInt(1, idQ);
-            ps.setObject(2, null);
-            ps.setString(3, "Maybe");
-            ps.setInt(4, idTicketType);
-            ps.executeUpdate();
+            if (!question2Exists(idQ, "Yes")) {
+                ps.setInt(1, idQ);
+                ps.setObject(2, null);
+                ps.setString(3, "Yes");
+                ps.setInt(4, idTicketType);
+                ps.executeUpdate();
+            }
+            if (!question2Exists(idQ, "No")) {
+                ps.setInt(1, idQ);
+                ps.setObject(2, null);
+                ps.setString(3, "No");
+                ps.setInt(4, idTicketType);
+                ps.executeUpdate();
+            }    
+            if (!question2Exists(idQ, "Maybe")) {
+                ps.setInt(1, idQ);
+                ps.setObject(2, null);
+                ps.setString(3, "Maybe");
+                ps.setInt(4, idTicketType);
+                ps.executeUpdate();
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(QAController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -430,6 +456,7 @@ public class QAController {
         } catch (SQLException ex) {
             Logger.getLogger(QAController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
+
             clear();
         }
         return "admin?faces-redirect=true";
@@ -484,7 +511,7 @@ public class QAController {
             String query = "update question_associations set id_question2 = " + idThirdQ + " where id_question1 = " + question1.getIdQuestion() + " and answer = \"" + answer + "\"";
             stmt.executeUpdate(query);
             insertQuestionInAssociations();
-
+            insertQuestionInAssociations(question2.getIdQuestion());
             FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().getFlash().setKeepMessages(true);
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Question inserted", null);
@@ -608,7 +635,7 @@ public class QAController {
             reload();
         }
     }
-    
+
     public void cancel() throws IOException {
         reload();
         visibleManageDialog = true;

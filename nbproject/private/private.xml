@@ -5,13 +5,6 @@
         <group>
             <file>file:/C:/Users/Marko/Documents/NetBeansProjects/TicketService/web/index.xhtml</file>
             <file>file:/C:/Users/Marko/Documents/NetBeansProjects/TicketService/web/admin.xhtml</file>
-            <file>file:/C:/Users/Marko/Documents/NetBeansProjects/TicketService/src/java/controllers/CityController.java</file>
-            <file>file:/C:/Users/Marko/Documents/NetBeansProjects/TicketService/src/java/beans/Question.java</file>
-            <file>file:/C:/Users/Marko/Documents/NetBeansProjects/TicketService/web/operator.xhtml</file>
-            <file>file:/C:/Users/Marko/Documents/NetBeansProjects/TicketService/src/java/controllers/QAController.java</file>
-            <file>file:/C:/Users/Marko/Documents/NetBeansProjects/TicketService/src/java/beans/QuestionAssociation.java</file>
-            <file>file:/C:/Users/Marko/Documents/NetBeansProjects/TicketService/src/java/controllers/TicketController.java</file>
-            <file>file:/C:/Users/Marko/Documents/NetBeansProjects/TicketService/src/java/controllers/OperatorController.java</file>
         </group>
     </open-files>
 </project-private>

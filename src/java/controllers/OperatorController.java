@@ -186,7 +186,7 @@ public class OperatorController {
                 int currentType = allOperators.get(i).getType();
                 int currentId = allOperators.get(i).getId();
                 String currentUrl = allOperators.get(i).getImage();
-                String query = "update operators set password='" + currentUsername + "', password='" + currentPassword + "', type=" + currentType + "', img=" + currentUrl + " where id= " + currentId;
+                String query = "update operators set password='" + currentUsername + "', password='" + currentPassword + "', type=" + currentType + ", img='" + currentUrl + "' where id= " + currentId;
                 stmt.executeUpdate(query);
             }
 
