@@ -78,7 +78,7 @@ CREATE TABLE `group` (
   `idgroup` int(11) NOT NULL AUTO_INCREMENT,
   `subject` varchar(45) NOT NULL,
   PRIMARY KEY (`idgroup`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -87,7 +87,7 @@ CREATE TABLE `group` (
 
 LOCK TABLES `group` WRITE;
 /*!40000 ALTER TABLE `group` DISABLE KEYS */;
-INSERT INTO `group` VALUES (1,'No group'),(2,'Nema struje'),(4,'Kasni penzija');
+INSERT INTO `group` VALUES (1,'No group'),(2,'Nema struje'),(4,'Kasni penzija'),(5,'Test grupa');
 /*!40000 ALTER TABLE `group` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +130,7 @@ CREATE TABLE `question_associations` (
   `id_question1` int(11) NOT NULL,
   `id_question2` int(11) DEFAULT NULL,
   `fk_id_ticket_type` int(11) NOT NULL,
-  PRIMARY KEY (`answer`,`id_question1`),
+  PRIMARY KEY (`answer`,`id_question1`,`fk_id_ticket_type`),
   KEY `id_question1_idx` (`id_question1`),
   KEY `id_question2_idx` (`id_question2`),
   KEY `fk_id_ticket_type_idx` (`fk_id_ticket_type`),
@@ -146,7 +146,7 @@ CREATE TABLE `question_associations` (
 
 LOCK TABLES `question_associations` WRITE;
 /*!40000 ALTER TABLE `question_associations` DISABLE KEYS */;
-INSERT INTO `question_associations` VALUES ('Maybe',16,19,1),('Maybe',17,20,1),('Maybe',18,NULL,1),('Maybe',19,22,1),('Maybe',20,NULL,1),('Maybe',21,NULL,1),('Maybe',22,NULL,1),('Maybe',23,NULL,1),('Maybe',24,25,2),('Maybe',25,28,2),('Maybe',26,NULL,2),('Maybe',27,29,2),('Maybe',28,NULL,2),('Maybe',29,NULL,2),('Maybe',31,32,3),('Maybe',32,34,3),('Maybe',33,35,3),('Maybe',34,NULL,3),('Maybe',35,NULL,3),('No',16,18,1),('No',17,NULL,1),('No',18,21,1),('No',19,NULL,1),('No',20,NULL,1),('No',21,NULL,1),('No',22,NULL,1),('No',23,NULL,1),('No',24,25,2),('No',25,27,2),('No',26,NULL,2),('No',27,29,2),('No',28,NULL,2),('No',29,NULL,2),('No',31,33,3),('No',32,34,3),('No',33,NULL,3),('No',34,NULL,3),('No',35,NULL,3),('Yes',16,17,1),('Yes',17,20,1),('Yes',18,NULL,1),('Yes',19,NULL,1),('Yes',20,NULL,1),('Yes',21,NULL,1),('Yes',22,NULL,1),('Yes',23,NULL,1),('Yes',24,25,2),('Yes',25,26,2),('Yes',26,NULL,2),('Yes',27,29,2),('Yes',28,NULL,2),('Yes',29,NULL,2),('Yes',31,32,3),('Yes',32,34,3),('Yes',33,35,3),('Yes',34,NULL,3),('Yes',35,NULL,3);
+INSERT INTO `question_associations` VALUES ('Maybe',18,NULL,1),('Maybe',20,NULL,1),('Maybe',21,NULL,1),('Maybe',22,NULL,1),('Maybe',23,NULL,1),('Maybe',26,NULL,2),('Maybe',28,NULL,2),('Maybe',29,NULL,2),('Maybe',34,NULL,3),('Maybe',35,NULL,3),('No',17,NULL,1),('No',19,NULL,1),('No',20,NULL,1),('No',21,NULL,1),('No',22,NULL,1),('No',23,NULL,1),('No',26,NULL,2),('No',28,NULL,2),('No',29,NULL,2),('No',33,NULL,3),('No',34,NULL,3),('No',35,NULL,3),('Yes',18,NULL,1),('Yes',19,NULL,1),('Yes',20,NULL,1),('Yes',21,NULL,1),('Yes',22,NULL,1),('Yes',23,NULL,1),('Yes',26,NULL,2),('Yes',28,NULL,2),('Yes',29,NULL,2),('Yes',34,NULL,3),('Yes',35,NULL,3),('Yes',16,17,1),('No',16,18,1),('Maybe',16,19,1),('Maybe',17,20,1),('Yes',17,20,1),('No',18,21,1),('Maybe',19,22,1),('Maybe',24,25,2),('No',24,25,2),('Yes',24,25,2),('Yes',25,26,2),('No',25,27,2),('Maybe',25,28,2),('Maybe',27,29,2),('No',27,29,2),('Yes',27,29,2),('Maybe',31,32,3),('Yes',31,32,3),('No',31,33,3),('Maybe',32,34,3),('No',32,34,3),('Yes',32,34,3),('Maybe',33,35,3),('Yes',33,35,3);
 /*!40000 ALTER TABLE `question_associations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +185,7 @@ CREATE TABLE `request_type` (
   `idrequest_type` int(11) NOT NULL AUTO_INCREMENT,
   `request_type` varchar(45) NOT NULL,
   PRIMARY KEY (`idrequest_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,7 +194,7 @@ CREATE TABLE `request_type` (
 
 LOCK TABLES `request_type` WRITE;
 /*!40000 ALTER TABLE `request_type` DISABLE KEYS */;
-INSERT INTO `request_type` VALUES (1,'Phone'),(2,'E-mail'),(3,'SMS');
+INSERT INTO `request_type` VALUES (1,'Phone'),(2,'E-mail'),(3,'SMS'),(6,'Phone call');
 /*!40000 ALTER TABLE `request_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,7 +209,7 @@ CREATE TABLE `status` (
   `idstatus` int(11) NOT NULL AUTO_INCREMENT,
   `status_type` varchar(45) NOT NULL,
   PRIMARY KEY (`idstatus`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -303,7 +303,7 @@ CREATE TABLE `tickets` (
   CONSTRAINT `fk_tickets_ticket_type1` FOREIGN KEY (`fk_idticket_type`) REFERENCES `ticket_type` (`idticket_type`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `idgroup` FOREIGN KEY (`idgroup`) REFERENCES `group` (`idgroup`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `tickets_users` FOREIGN KEY (`fk_id_user`) REFERENCES `users` (`id_user`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,7 +312,7 @@ CREATE TABLE `tickets` (
 
 LOCK TABLES `tickets` WRITE;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
-INSERT INTO `tickets` VALUES (2,'2018-05-17',1,2,'',120,3,1,1),(3,'2018-05-17',2,2,'',120,3,2,1),(4,'2018-05-17',1,2,'',120,3,1,1),(12,'2018-05-22',1,1,'\n2018-05-27 00:06:34\n\n ',7,3,2,1),(13,'2018-05-22',2,1,'\n2018-05-26 11:06:51\n\nTicket closed\n2018-05-26 11:09:11\n\n \n2018-05-26 11:09:19\n\nTicket closed\n2018-05-26 12:47:23\n\n \n2018-05-26 12:47:49\nmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm\n \n2018-05-29 09:21:11\n\n \n2018-05-29 09:21:15\n\n ',5,3,NULL,2),(14,'2018-05-29',1,1,'\n2018-05-29 09:26:08\n\n \n2018-05-29 09:26:12\n\n ',5,3,1,1),(15,'2018-05-30',1,1,'',121,2,2,1),(16,'2018-06-01',1,1,'',120,7,1,1),(17,'2018-06-01',1,1,'',121,7,1,1),(18,'2018-06-01',1,1,'',121,7,1,1),(19,'2018-06-01',1,1,'',121,7,1,1),(20,'2018-06-01',1,1,'',121,7,1,1),(21,'2018-06-01',1,1,'',121,7,1,1),(22,'2018-06-01',1,1,'',123,7,1,1),(23,'2018-06-01',1,1,'',121,7,1,1),(24,'2018-06-01',1,1,'',123,7,1,1),(25,'2018-06-01',1,1,'',120,7,1,1),(26,'2018-06-01',1,1,'',9,7,1,1),(27,'2018-06-01',1,1,'',9,7,1,1),(28,'2018-06-01',1,1,'',120,7,1,1),(29,'2018-06-01',1,1,'',7,7,1,1),(30,'2018-06-01',1,1,'',7,7,1,1),(31,'2018-06-01',1,1,'',7,7,1,2),(32,'2018-06-01',1,1,'',120,7,1,1),(33,'2018-06-01',1,1,'',120,7,1,1),(34,'2018-06-01',1,1,'',123,7,1,1),(35,'2018-06-01',1,1,'',121,7,1,1),(36,'2018-06-01',1,1,'',9,7,1,1),(37,'2018-06-01',1,1,'',123,7,1,1),(38,'2018-06-01',1,1,'',121,7,1,1),(39,'2018-06-01',1,1,'',123,7,1,1),(40,'2018-06-01',1,1,'',121,7,1,1),(41,'2018-06-01',1,1,'',121,7,1,1),(42,'2018-06-01',1,1,'',123,7,1,1),(43,'2018-06-01',1,1,'',9,7,1,1),(44,'2018-06-01',1,1,'',121,7,1,1),(45,'2018-06-01',1,1,'',123,7,1,1),(46,'2018-06-01',1,1,'',120,7,1,1),(47,'2018-06-01',1,1,'',123,7,1,1),(48,'2018-06-01',1,1,'',123,7,1,1),(49,'2018-06-01',1,1,'',123,7,1,1),(50,'2018-06-01',1,1,'',123,7,1,1),(51,'2018-06-01',1,1,'',123,7,1,1),(52,'2018-06-01',1,1,'',123,7,1,1),(53,'2018-06-01',1,1,'',123,7,1,1),(54,'2018-06-01',1,1,'',123,7,1,1),(55,'2018-06-01',1,1,'',123,7,1,1),(56,'2018-06-01',1,1,'',123,7,1,1),(57,'2018-06-01',1,1,'',123,7,1,1),(58,'2018-06-01',1,1,'',123,7,1,1),(59,'2018-06-01',1,1,'',123,7,1,1),(60,'2018-06-01',1,1,'',123,7,1,1),(61,'2018-06-04',1,1,'',5,2,1,2),(62,'2018-06-04',1,1,'',5,2,1,2),(63,'2018-06-04',1,1,'',5,2,1,2),(64,'2018-06-04',1,1,'',9,2,1,1),(65,'2018-06-04',1,1,'',123,2,1,2);
+INSERT INTO `tickets` VALUES (2,'2018-05-17',3,2,'\n2018-06-05 11:48:50\n\n \n2018-06-05 11:49:11\n\n \n2018-06-05 11:50:13\n\n \n2018-06-05 11:54:33\n\n \n2018-06-05 11:54:51\n\n \n2018-06-05 11:58:40\n\nTicket closed',120,3,2,1),(3,'2018-05-17',2,2,'',120,3,2,1),(4,'2018-05-17',1,2,'',120,3,1,1),(12,'2018-05-22',1,1,'\n2018-05-27 00:06:34\n\n \n2018-06-05 12:00:19\n\n ',7,3,4,1),(13,'2018-05-22',2,1,'\n2018-05-26 11:06:51\n\nTicket closed\n2018-05-26 11:09:11\n\n \n2018-05-26 11:09:19\n\nTicket closed\n2018-05-26 12:47:23\n\n \n2018-05-26 12:47:49\nmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm\n \n2018-05-29 09:21:11\n\n \n2018-05-29 09:21:15\n\n \n2018-06-05 11:19:02\n\nTicket closed\n2018-06-05 11:19:07\n\nTicket closed\n2018-06-05 11:19:31\n\nTicket closed\n2018-06-05 11:21:10\n\nTicket closed\n2018-06-05 11:21:18\n\n \n2018-06-05 11:42:13\n\n \n2018-06-05 11:42:19\n\n \n2018-06-05 11:42:55\n\n \n2018-06-05 11:43:02\n\n \n2018-06-05 11:43:24\n\n \n2018-06-05 11:44:09\n\n \n2018-06-05 11:44:20\n\nTicket closed\n2018-06-05 11:44:41\n\n ',5,3,5,2),(14,'2018-05-29',1,1,'\n2018-05-29 09:26:08\n\n \n2018-05-29 09:26:12\n\n \n2018-06-05 11:55:23\n\nTicket closed\n2018-06-06 08:46:20\n\n ',5,3,1,1),(15,'2018-05-30',2,1,'\n2018-06-05 11:16:08\n\n \n2018-06-05 11:16:23\n\n \n2018-06-05 11:16:46\n\n \n2018-06-05 11:19:24\n\n \n2018-06-05 11:19:48\n\n \n2018-06-05 11:20:51\n\n \n2018-06-05 11:23:19\n\n \n2018-06-05 11:23:41\n\n \n2018-06-05 11:42:49\n\n \n2018-06-05 11:43:18\n\n \n2018-06-05 11:43:37\n\n \n2018-06-05 11:44:01\n\n \n2018-06-05 11:44:34\n\n \n2018-06-06 08:46:32\n\n ',121,2,1,1),(16,'2018-06-01',1,1,'',120,7,1,1),(17,'2018-06-01',1,1,'',121,7,1,1),(18,'2018-06-01',1,1,'',121,7,1,1),(19,'2018-06-01',1,1,'',121,7,1,1),(20,'2018-06-01',1,1,'',121,7,1,1),(21,'2018-06-01',1,1,'',121,7,1,1),(22,'2018-06-01',1,1,'',123,7,1,1),(23,'2018-06-01',1,1,'',121,7,1,1),(24,'2018-06-01',1,1,'',123,7,1,1),(25,'2018-06-01',1,1,'',120,7,1,1),(26,'2018-06-01',1,1,'',9,7,1,1),(27,'2018-06-01',1,1,'',9,7,1,1),(28,'2018-06-01',1,1,'',120,7,1,1),(29,'2018-06-01',1,1,'',7,7,1,1),(30,'2018-06-01',1,1,'',7,7,1,1),(31,'2018-06-01',1,1,'',7,7,1,2),(32,'2018-06-01',1,1,'',120,7,1,1),(33,'2018-06-01',1,1,'',120,7,1,1),(34,'2018-06-01',1,1,'',123,7,1,1),(35,'2018-06-01',1,1,'',121,7,1,1),(36,'2018-06-01',1,1,'',9,7,1,1),(37,'2018-06-01',1,1,'',123,7,1,1),(38,'2018-06-01',1,1,'',121,7,1,1),(39,'2018-06-01',1,1,'',123,7,1,1),(40,'2018-06-01',1,1,'',121,7,1,1),(41,'2018-06-01',1,1,'',121,7,1,1),(42,'2018-06-01',1,1,'',123,7,1,1),(43,'2018-06-01',1,1,'',9,7,1,1),(44,'2018-06-01',1,1,'',121,7,1,1),(45,'2018-06-01',1,1,'',123,7,1,1),(46,'2018-06-01',1,1,'',120,7,1,1),(47,'2018-06-01',1,1,'',123,7,1,1),(48,'2018-06-01',1,1,'',123,7,1,1),(49,'2018-06-01',1,1,'',123,7,1,1),(50,'2018-06-01',1,1,'',123,7,1,1),(51,'2018-06-01',1,1,'',123,7,1,1),(52,'2018-06-01',1,1,'',123,7,1,1),(53,'2018-06-01',1,1,'',123,7,1,1),(54,'2018-06-01',1,1,'',123,7,1,1),(55,'2018-06-01',1,1,'',123,7,1,1),(56,'2018-06-01',1,1,'',123,7,1,1),(57,'2018-06-01',1,1,'',123,7,1,1),(58,'2018-06-01',1,1,'',123,7,1,1),(59,'2018-06-01',1,1,'',123,7,1,1),(60,'2018-06-01',1,1,'',123,7,1,1),(61,'2018-06-04',3,1,'\n2018-06-05 11:13:38\n\nTicket closed',5,2,1,2),(62,'2018-06-04',3,1,'\n2018-06-05 11:12:40\n\nTicket closed\n2018-06-05 11:15:47\n\nTicket closed',5,2,4,2),(63,'2018-06-04',3,1,'\n2018-06-05 11:44:25\n\nTicket closed',5,2,1,2),(64,'2018-06-04',1,1,'',9,2,1,1),(65,'2018-06-04',1,1,'',123,2,1,2),(66,'2018-06-06',1,2,'',122,1,1,2);
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -339,7 +339,7 @@ CREATE TABLE `user_answers` (
   CONSTRAINT `fk_id_ticket` FOREIGN KEY (`fk_id_ticket`) REFERENCES `tickets` (`id_ticket`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_id_user` FOREIGN KEY (`fk_id_user`) REFERENCES `users` (`id_user`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_operators_id` FOREIGN KEY (`fk_operators_id`) REFERENCES `operators` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -348,7 +348,7 @@ CREATE TABLE `user_answers` (
 
 LOCK TABLES `user_answers` WRITE;
 /*!40000 ALTER TABLE `user_answers` DISABLE KEYS */;
-INSERT INTO `user_answers` VALUES (72,'Yes',5,2,63,24),(73,'No',5,2,63,25),(74,'Yes',5,2,63,27),(75,'Yes',5,2,63,29),(76,'Yes',9,2,64,16),(77,'No',9,2,64,17),(78,'Yes',123,2,65,24),(79,'No',123,2,65,25),(80,'Yes',123,2,65,27),(81,'Yes',123,2,65,29);
+INSERT INTO `user_answers` VALUES (72,'Yes',5,2,63,24),(73,'No',5,2,63,25),(74,'Yes',5,2,63,27),(75,'Yes',5,2,63,29),(76,'Yes',9,2,64,16),(77,'No',9,2,64,17),(78,'Yes',123,2,65,24),(79,'No',123,2,65,25),(80,'Yes',123,2,65,27),(81,'Yes',123,2,65,29),(82,'Yes',122,1,66,24),(83,'No',122,1,66,25),(84,'Yes',122,1,66,27),(85,'Yes',122,1,66,29);
 /*!40000 ALTER TABLE `user_answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -392,4 +392,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-04 12:36:30
+-- Dump completed on 2018-06-06 11:52:50
